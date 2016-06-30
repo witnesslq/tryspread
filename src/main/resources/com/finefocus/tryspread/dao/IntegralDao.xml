@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finefocus.tryspread.dao.IntegralDao">
+    <insert id="saveIntegralByUserId">
+        INSERT INTO u_integral (user_id, total_integral, current_integration) VALUES (#{userId},0,0)
+    </insert>
+    <update id="updateIntegralById">
+        UPDATE u_integral SET total_integral = #{totalIntegral} ,current_integration = #{currentIntegration} WHERE
+        user_id = #{userId} AND id = #{id}
+    </update>
+    <select id="IntegralByUserId" resultType="com.finefocus.tryspread.pojo.IntegralBean"
+            parameterType="java.lang.Integer">
+        SELECT * FROM u_integral WHERE user_id=#{userId}
+    </select>
+</mapper>

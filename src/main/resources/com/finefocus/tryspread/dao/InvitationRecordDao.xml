@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finefocus.tryspread.dao.InvitationRecordDao">
+    <select id="getInvitationRecordByUserId" resultType="com.finefocus.tryspread.pojo.InvitationRecordBean">
+        SELECT be_invited_id , invitation_time , invitation_class FROM u_invitation_record WHERE user_id = #{userId}
+    </select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.finefocus.tryspread.dao.UserDao">
+    <insert id="saveUser" parameterType="com.finefocus.tryspread.pojo.UserBean">
+        INSERT INTO u_user (id,imei, imsi, os, brand, model, screen) VALUES
+        (ROUND(ROUND(RAND(),8)*100000000),#{imei},#{imsi},#{os},#{brand},#{model},#{screen})
+    </insert>
+
+    <select id="getUserIdByImei" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT id FROM u_user WHERE imei = #{imei}
+    </select>
+</mapper>

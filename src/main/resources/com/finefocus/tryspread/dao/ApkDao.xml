@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finefocus.tryspread.dao.ApkDao">
+    <update id="setStateByApkId">
+        UPDATE t_apk SET state=0 WHERE id=#{apkId}
+    </update>
+    <select id="getApkUrl" resultType="java.lang.String">
+        SELECT apk_url
+        FROM t_apk
+        WHERE
+        #{newDate} BETWEEN start_date AND end_date
+        AND
+        #{hours} BETWEEN start_time AND end_time
+        AND
+        state = #{state}
+        AND
+        task_id=#{taskId}
+        ORDER BY weight DESC
+        LIMIT 1
+    </select>
+    <select id="getApkUrlAndApkId" resultType="com.finefocus.tryspread.pojo.ApkBean">
+        SELECT *
+        FROM t_apk
+        WHERE
+        #{newDate} BETWEEN start_date AND end_date
+        AND
+        #{hours} BETWEEN start_time AND end_time
+        AND
+        state = #{state}
+        AND
+        task_id=#{taskId}
+        ORDER BY weight DESC
+        LIMIT 1
+    </select>
+    <select id="getApkUrlAndApkIdToMap" resultType="java.util.Map">
+        SELECT apk_url,id
+        FROM t_apk
+        WHERE
+        #{newDate} BETWEEN start_date AND end_date
+        AND
+        #{hours} BETWEEN start_time AND end_time
+        AND
+        state = #{state}
+        AND
+        task_id=#{taskId}
+        ORDER BY weight DESC
+        LIMIT 1
+    </select>
+    <select id="getLimitedByApkId" resultType="java.lang.Integer">
+        SELECT limited FROM t_apk WHERE id=#{apkId}
+    </select>
+</mapper>

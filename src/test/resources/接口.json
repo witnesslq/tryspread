@@ -1,0 +1,131 @@
+{
+  "userId": "231",
+  "integral": {
+    "totalIntegral": "90000",
+    "currentIntegration": "1000"
+  },
+  "taskLog": [
+    {
+      "taskName": "京东",
+      "taskTime": "2016年6月13日 16:25:10",
+      "taskIntegration": "2000"
+    },
+    {
+      "taskName": "淘宝",
+      "taskTime": "2016年6月13日 16:25:10",
+      "taskIntegration": "10000"
+    }
+  ],
+  "exchangeRecord": [
+    {
+      "itemName": "支付宝20元",
+      "exchangeTime": "2016年6月13日 16:25:10",
+      "exchangeIntegral": "2000"
+    },
+    {
+      "itemName": "QB100个",
+      "exchangeTime": "2016年6月13日 16:25:10",
+      "exchangeIntegral": "2000"
+    }
+  ],
+  "invitationRecord": [
+    {
+      "userId": "123",
+      "invitationTime": "2016年6月13日 16:25:10",
+      "invitationClass": "1"
+    },
+    {
+      "userId": "111111",
+      "invitationTime": "2016年6月13日 16:25:10",
+      "invitationClass": "2"
+    }
+  ]
+}
+
+
+
+{
+"integral":{
+"totalIntegral": "90000",
+"currentIntegration": "1000"
+},
+"taskLog": [
+{
+"taskName": "京东",
+"taskTime": "2016年6月13日 16:25:10",
+"taskIntegration": "2000"
+}
+,
+{
+"taskName": "淘宝",
+"taskTime": "2016年6月13日 16:25:10",
+"taskIntegration": "10000"
+}
+]
+}
+
+
+[
+{
+"taskId": "123",
+"taskName": "淘宝",
+"taskType": "任务类型",
+"taskInformation":
+{
+"appSize": "app大小",
+"appIntroduce": "app介绍",
+"appUrl": "app地址",
+"appDes":"app描述",
+}
+,
+"step":[
+{
+"stepId": "1",
+"des": "描述",
+"useDays": "使用天数",
+"useTime": "使用时常",
+"integral": "积分",
+}
+,
+{
+"stepId": "2",
+"des":"描述",
+"useDays": "使用天数",
+"useTime": "使用时常",
+"integral": "积分",
+},
+]
+},
+{
+"taskId": "123",
+"taskName": "淘宝",
+"taskType": "任务类型",
+"taskInformation":
+{
+"appSize":"app大小",
+"appIntroduce": "app介绍",
+"appUrl": "app地址",
+"appDes": "app描述",
+},
+"step":[
+{
+"stepId": "1",
+"des": "描述",
+"useDays": "使用天数",
+"useTime": "使用时常",
+"integral": "积分",
+}
+,
+{
+"stepId": "2",
+"des":"描述",
+"useDays": "使用天数",
+"useTime": "使用时常",
+"integral": "积分",
+},
+]
+},
+]
+
+
+

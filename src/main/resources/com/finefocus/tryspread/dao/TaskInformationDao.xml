@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finefocus.tryspread.dao.TaskInformationDao">
+    <select id="getTaskInfoByTaskId" resultType="com.finefocus.tryspread.pojo.TaskInformationBean">
+        SELECT id,task_id,app_size,app_introduce,app_des,app_package,ext_url,app_icon FROM t_task_info WHERE task_id =
+        #{taskId}
+    </select>
+</mapper>

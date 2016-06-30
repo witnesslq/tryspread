@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finefocus.tryspread.dao.TaskLogDao">
+    <insert id="save">
+        INSERT INTO u_task_log (user_id, task_id, step_id, task_name, task_integration,state) VALUES
+        (#{userId},#{taskId},#{stepId},#{taskName},#{taskIntegration},0)
+    </insert>
+    <update id="updateStateByByUserIdAndTaskIdStepId">
+        UPDATE u_task_log SET state=#{state} WHERE user_id = #{userId} AND task_id= #{taskId} AND step_id = #{stepId}
+    </update>
+    <update id="createTask">
+        UPDATE u_task_log SET state=#{state} , task_creat_time = #{date} WHERE user_id = #{userId} AND task_id =
+        #{taskId} AND step_id = #{stepId}
+    </update>
+    <update id="completeTask">
+        UPDATE u_task_log SET state=#{state} , task_time = #{taskTime} WHERE user_id = #{userId} AND task_id = #{taskId}
+        AND step_id = #{stepId}
+    </update>
+    <!--<select id="getTaskLogByUserId" resultType="com.finefocus.tryspread.pojo.TaskLogBean">-->
+    <!--SELECT id,task_id,step_id,task_name,task_time,task_integration,state,task_creat_time FROM u_task_log WHERE user_id=#{userId} and state=1-->
+    <!--</select>-->
+    <select id="getTaskLogByUserId" resultType="com.finefocus.tryspread.pojo.TaskLogBean">
+        SELECT id,task_id,step_id,task_name,task_time,task_integration,state,task_creat_time ,user_id FROM u_task_log
+        WHERE user_id=#{userId}
+    </select>
+    <select id="getTaskLogByUserIdAndTaskIdStepId" resultType="com.finefocus.tryspread.pojo.TaskLogBean">
+        SELECT * FROM u_task_log WHERE user_id=#{userId} AND task_id=#{taskId} AND step_id=#{stepId}
+    </select>
+    <select id="getTaskLogByMap" resultType="java.lang.Integer">
+        SELECT id FROM u_task_log WHERE user_id=#{userId} AND task_id=#{taskId} AND step_id=#{stepId}
+    </select>
+    <select id="getTaskIdsByUserId" resultType="java.lang.Integer">
+        SELECT task_id FROM u_task_log WHERE user_id=#{userId} GROUP BY task_id
+    </select>
+    <select id="getTaskLogByUserIdAndTaskIdAndState" resultType="java.lang.Integer">
+        SELECT step_id FROM u_task_log WHERE user_id=#{userId} AND task_id=#{taskId} AND state=#{state}
+    </select>
+</mapper>
