@@ -29,6 +29,9 @@ public class UserController {
     @Autowired
     private SignUpService signUpService;
 
+    @Autowired
+    private UserInfoService userInfoService;
+
     /**
      * 用户注册登录
      *
@@ -41,5 +44,30 @@ public class UserController {
         Map<String, Object> map = signUpService.signUp(userBean);
         return map;
 
+    }
+
+    @RequestMapping(value = "bindeUserInfo", method = RequestMethod.POST)
+    public Map<String, Object> bindeUserInfo(UserInfoBean userInfoBean) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (userInfoBean == null) {
+            map.put(CodeAndMsg.RESULT, CodeAndMsg.ERROR);
+            map.put(CodeAndMsg.CODE, CodeAndMsg.PARAMETERERROR);
+            map.put(CodeAndMsg.MSG, "绑定信息为空");
+            return map;
+        }
+        if (userInfoBean != null) {
+            Integer id = userInfoService.getUserInfoByUserId(userInfoBean.getuUserId());
+            if (id == null) {
+                userInfoService.saveUserInfo(userInfoBean);
+            } else {
+                userInfoBean.setId(id);
+                userInfoService.updateUserInfoById(userInfoBean);
+            }
+            map.put(CodeAndMsg.RESULT, CodeAndMsg.SUCCESS);
+            map.put(CodeAndMsg.CODE, CodeAndMsg.OK);
+            map.put(CodeAndMsg.MSG, "绑定用户信息完成！！！");
+            return map;
+        }
+        return map;
     }
 }

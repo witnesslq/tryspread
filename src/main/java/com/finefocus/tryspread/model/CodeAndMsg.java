@@ -26,6 +26,10 @@ public class CodeAndMsg {
     public static final String FirstDownload = "207";//第一次下载
     public static final String DownloadOverLimit = "208";//下载超过限制次数
     public static final String IncreaseTheCounter = "209";//增加计数器
+    public static final String ExchangeListingIsNull = "210";//兑换列表为空
+    public static final String ExchangeListingIsOk = "211";//获取可兑换列表成功
+    public static final String EnoughPoints = "212";//积分不够
+    public static final String PointsAreDeducted = "213";//积分已扣除
 
 
 }

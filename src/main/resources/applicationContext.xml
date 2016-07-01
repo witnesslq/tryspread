@@ -27,6 +27,7 @@
         <property name="locations">
             <list>
                 <value>classpath:/application.properties</value>
+                <value>classpath:/redisKey.properties</value>
             </list>
         </property>
     </bean>

@@ -22,4 +22,6 @@ public interface IntegralDao {
     void updateIntegralById(IntegralBean integralBean);
 
     void saveIntegralByUserId(int userId);
+
+    void updateCurrentIntegrationByUserId(int currentIntegration, Integer userId);
 }

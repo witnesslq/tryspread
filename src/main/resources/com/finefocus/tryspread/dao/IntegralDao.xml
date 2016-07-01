@@ -8,6 +8,9 @@
         UPDATE u_integral SET total_integral = #{totalIntegral} ,current_integration = #{currentIntegration} WHERE
         user_id = #{userId} AND id = #{id}
     </update>
+    <update id="updateCurrentIntegrationByUserId">
+        UPDATE u_integral SET current_integration=#{currentIntegration} WHERE user_id=#{userId}
+    </update>
     <select id="IntegralByUserId" resultType="com.finefocus.tryspread.pojo.IntegralBean"
             parameterType="java.lang.Integer">
         SELECT * FROM u_integral WHERE user_id=#{userId}

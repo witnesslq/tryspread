@@ -15,4 +15,6 @@ public interface IntegralService {
     void updateIntegralById(IntegralBean integralBean);
 
     void saveIntegralByUserId(int userId);
+
+    void updateCurrentIntegrationByUserId(int currentIntegration, Integer userId);
 }

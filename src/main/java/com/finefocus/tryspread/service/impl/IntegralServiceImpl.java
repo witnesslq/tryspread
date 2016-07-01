@@ -29,4 +29,8 @@ public class IntegralServiceImpl implements IntegralService {
     public void saveIntegralByUserId(int userId) {
         integralDao.saveIntegralByUserId(userId);
     }
+
+    public void updateCurrentIntegrationByUserId(int currentIntegration, Integer userId) {
+        integralDao.updateCurrentIntegrationByUserId(currentIntegration, userId);
+    }
 }
