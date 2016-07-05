@@ -15,8 +15,8 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @Description: ${todo}
  */
 public class ExchangeManager {
-    private static Map<Integer, ExchangeInformation> toBeProcessMap = new ConcurrentHashMap<Integer, ExchangeInformation>();
-    private static BlockingQueue<Integer> requestSerialQueue = new LinkedBlockingQueue<Integer>();
+    private static Map<String, ExchangeInformation> toBeProcessMap = new ConcurrentHashMap<String, ExchangeInformation>();
+    private static BlockingQueue<String> requestSerialQueue = new LinkedBlockingQueue<String>();
     private static Thread requestProcessor;
 
 
@@ -27,7 +27,34 @@ public class ExchangeManager {
      * @throws Exception
      */
     public static void addRequest(ExchangeInformation exchangeInformation) throws Exception {
-        toBeProcessMap.put(exchangeInformation.getUserId(), exchangeInformation);
-        requestSerialQueue.put(exchangeInformation.getUserId());
+        toBeProcessMap.put(exchangeInformation.getId(), exchangeInformation);
+        requestSerialQueue.put(exchangeInformation.getId());
+    }
+
+    /**
+     * 从待处理队列获取请求
+     *
+     * @return
+     * @throws Exception
+     */
+    public static ExchangeInformation getRequest() throws Exception {
+        String id = requestSerialQueue.take();
+        ExchangeInformation exchangeInformation = toBeProcessMap.get(id);
+        toBeProcessMap.remove(id);
+        return exchangeInformation;
+    }
+
+    public static Thread getRequestProcessor() {
+        return requestProcessor;
+    }
+
+    public static void setRequestProcessor(Thread requestProcessor) {
+        ExchangeManager.requestProcessor = requestProcessor;
+    }
+
+    public static void startProcessor() {
+        if (requestProcessor != null) {
+            requestProcessor.start();
+        }
     }
 }

@@ -7,4 +7,10 @@
     <select id="getRatioById" resultType="java.lang.Integer">
         SELECT ratio FROM exchange_products WHERE id= #{id}
     </select>
+    <select id="getNameById" resultType="java.lang.String">
+        SELECT name FROM exchange_products WHERE id= #{id}
+    </select>
+    <select id="getExchangeProductById" resultType="com.finefocus.tryspread.pojo.ExchangeProductsBean">
+        SELECT * FROM exchange_products WHERE id=#{id}
+    </select>
 </mapper>

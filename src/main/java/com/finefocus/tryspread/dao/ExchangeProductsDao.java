@@ -16,4 +16,8 @@ public interface ExchangeProductsDao {
     List<ExchangeProductsBean> getExchangeProducts();
 
     Integer getRatioById(Integer id);
+
+    String getNameById(Integer id);
+
+    ExchangeProductsBean getExchangeProductById(Integer id);
 }

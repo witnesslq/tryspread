@@ -32,6 +32,18 @@
         </property>
     </bean>
 
+
+    <bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="${threadPool.corePoolSize}"/>
+        <property name="maxPoolSize" value="${threadPool.maximumPoolSize}"/>
+        <property name="queueCapacity" value="${threadPool.queueCapacity}"/>
+        <property name="keepAliveSeconds" value="${threadPool.keepAliveTime}"/>
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"/>
+        </property>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     <!-- 数据源配置, 使用spring jdbc连接池 -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.SimpleDriverDataSource">

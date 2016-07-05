@@ -28,4 +28,8 @@ public class ExchangeProductsServiceImpl implements ExchangeProductsService {
     public Integer getRatioById(Integer id) {
         return exchangeProductsDao.getRatioById(id);
     }
+
+    public String getNameById(Integer id) {
+        return exchangeProductsDao.getNameById(id);
+    }
 }

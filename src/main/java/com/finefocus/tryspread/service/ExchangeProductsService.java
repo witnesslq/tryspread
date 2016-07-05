@@ -15,4 +15,6 @@ public interface ExchangeProductsService {
     List<ExchangeProductsBean> getExchangeProducts();
 
     Integer getRatioById(Integer id);
+
+    String getNameById(Integer id);
 }

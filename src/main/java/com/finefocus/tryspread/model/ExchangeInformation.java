@@ -8,10 +8,18 @@ package com.finefocus.tryspread.model;
  * @Description: ${todo}
  */
 public class ExchangeInformation {
-
+    private String id;
     private Integer userId;//用户id
     private Integer exchangeProductsId;//兑换商品id
     private Integer exchangeNum;//兑换的数目
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Integer getUserId() {
         return userId;

@@ -1,6 +1,7 @@
 package com.finefocus.tryspread.dao;
 
 import com.finefocus.tryspread.pojo.IntegralBean;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author WenhuChang
@@ -23,5 +24,5 @@ public interface IntegralDao {
 
     void saveIntegralByUserId(int userId);
 
-    void updateCurrentIntegrationByUserId(int currentIntegration, Integer userId);
+    void updateCurrentIntegrationByUserId(@Param("currentIntegration") int currentIntegration, @Param("userId") Integer userId);
 }

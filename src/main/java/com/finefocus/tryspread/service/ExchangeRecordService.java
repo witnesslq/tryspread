@@ -1,5 +1,6 @@
 package com.finefocus.tryspread.service;
 
+import com.finefocus.tryspread.model.ExchangeInformation;
 import com.finefocus.tryspread.pojo.ExchangeRecordBean;
 
 import java.util.List;
@@ -13,4 +14,6 @@ import java.util.List;
  */
 public interface ExchangeRecordService {
     List<ExchangeRecordBean> getExchangeRecordByUserId(int userId);
+
+    void exchange(ExchangeInformation exchangeInformation);
 }

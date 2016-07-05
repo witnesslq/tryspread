@@ -46,7 +46,8 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "bindeUserInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "userInfo", method = RequestMethod.POST)
+    @ResponseBody
     public Map<String, Object> bindeUserInfo(UserInfoBean userInfoBean) {
         Map<String, Object> map = new HashMap<String, Object>();
         if (userInfoBean == null) {

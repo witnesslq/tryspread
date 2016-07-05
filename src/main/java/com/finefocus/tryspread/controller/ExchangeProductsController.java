@@ -5,8 +5,11 @@ import com.finefocus.tryspread.common.RedisKeyProperties;
 import com.finefocus.tryspread.model.CodeAndMsg;
 import com.finefocus.tryspread.model.ExchangeInformation;
 import com.finefocus.tryspread.pojo.ExchangeProductsBean;
+import com.finefocus.tryspread.pojo.ExchangeRecordBean;
 import com.finefocus.tryspread.pojo.IntegralBean;
+import com.finefocus.tryspread.processor.ExchangeManager;
 import com.finefocus.tryspread.service.ExchangeProductsService;
+import com.finefocus.tryspread.service.ExchangeRecordService;
 import com.finefocus.tryspread.service.IntegralService;
 import com.finefocus.tryspread.service.RedisService;
 import org.slf4j.Logger;
@@ -17,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author WenhuChang
@@ -38,6 +39,8 @@ public class ExchangeProductsController {
     private IntegralService integralService;
     @Autowired
     private ExchangeProductsService exchangeProductsService;
+    @Autowired
+    private ExchangeRecordService exchangeRecordService;
 
     @RequestMapping(value = "getExchangeProducts", method = RequestMethod.GET)
     @ResponseBody
@@ -104,12 +107,20 @@ public class ExchangeProductsController {
 
         }
         if (integration >= requiredIntegration) {
+            int i = integration - requiredIntegration;
             //扣除积分 放入队列
-            integralService.updateCurrentIntegrationByUserId((integration - requiredIntegration), exchangeInformation.getUserId());
+            integralService.updateCurrentIntegrationByUserId(i, exchangeInformation.getUserId());
             map.put(CodeAndMsg.RESULT, CodeAndMsg.SUCCESS);
             map.put(CodeAndMsg.CODE, CodeAndMsg.PointsAreDeducted);
             map.put(CodeAndMsg.MSG, "积分已扣除");
             //放入队列
+            exchangeInformation.setId(UUID.randomUUID().toString());
+            try {
+                ExchangeManager.addRequest(exchangeInformation);
+            } catch (Exception e) {
+                e.printStackTrace();
+                LOGGER.error("异步处理用户兑换，添加到队列失败！", e);
+            }
 
             return map;
 

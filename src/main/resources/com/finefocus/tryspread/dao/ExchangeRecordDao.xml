@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.finefocus.tryspread.dao.ExchangeRecordDao">
+    <insert id="saveExchangeRecordBean" parameterType="com.finefocus.tryspread.pojo.ExchangeRecordBean"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO u_exchange_record (item_name, exchange_time, exchange_integral, user_Id, state) VALUES
+        (#{itemName},#{exchangeTime},#{exchangeIntegral},#{userId},#{state})
+    </insert>
     <select id="getExchangeRecordByUserId" resultType="com.finefocus.tryspread.pojo.ExchangeRecordBean">
-        SELECT item_name,exchange_time,exchange_integral FROM u_exchange_record WHERE user_Id=#{userId}
+        SELECT item_name,exchange_time,exchange_integral,state FROM u_exchange_record WHERE user_Id=#{userId}
     </select>
 </mapper>

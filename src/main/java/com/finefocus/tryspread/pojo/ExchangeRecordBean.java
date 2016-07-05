@@ -15,6 +15,15 @@ public class ExchangeRecordBean {
     private Integer exchangeIntegral;//消耗积分
     private Integer userId; //兑换用户id
     private Integer id;
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public Integer getId() {
         return id;

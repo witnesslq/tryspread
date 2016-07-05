@@ -17,4 +17,6 @@ public interface UserInfoDao {
     void saveUserInfo(UserInfoBean userInfoBean);
 
     void updateUserInfoById(UserInfoBean userInfoBean);
+
+    UserInfoBean getUserInfoBeanByUserId(Integer userId);
 }

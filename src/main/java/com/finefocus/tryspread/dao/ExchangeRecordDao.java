@@ -20,4 +20,6 @@ public interface ExchangeRecordDao {
      * @return 兑换记录
      */
     List<ExchangeRecordBean> getExchangeRecordByUserId(int userId);
+
+    Integer saveExchangeRecordBean(ExchangeRecordBean exchangeRecord);
 }
