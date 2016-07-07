@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="257166795">
-    <data-source source="LOCAL" name="MySQL - chatroom@138.128.201.85" uuid="7ef5af49-20d7-4f1a-ad1a-7c26c67e2a8b">
+  <component name="DataSourceManagerImpl" format="xml" hash="887916064">
+    <data-source source="LOCAL" name="DEV" uuid="b9556214-8aa8-460d-b787-8e9a86f964c0">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://138.128.201.85:3306/chatroom</jdbc-url>
+      <jdbc-url>jdbc:mysql://101.201.211.222:3306/tryspread</jdbc-url>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="tinyInt1isBit" value="false" />

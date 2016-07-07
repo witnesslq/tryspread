@@ -1,6 +1,10 @@
 package com.finefocus.tryspread.service.impl;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finefocus.tryspread.common.DateTool;
+import com.finefocus.tryspread.common.JsonTool;
+import com.finefocus.tryspread.common.RedisKeyProperties;
 import com.finefocus.tryspread.model.AcquisitionTask;
 import com.finefocus.tryspread.model.CodeAndMsg;
 import com.finefocus.tryspread.model.SynchronizationTask;
@@ -22,6 +26,7 @@ import java.util.*;
  */
 @Service(value = "getTaskService")
 public class GetTaskServiceImpl implements GetTaskService {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     protected Logger LOGGER = LoggerFactory.getLogger(GetTaskServiceImpl.class);
     @Autowired
     private IntegralService integralService;
@@ -46,15 +51,47 @@ public class GetTaskServiceImpl implements GetTaskService {
             map.put(CodeAndMsg.MSG, "用户id为空");
         }
         if (userId != null) {
-            // 任务与用户建立关联
-            List<Task> taskList = taskService.getTasks();
+            // 任务与用户建立关联 可加入redis
+            List<Task> taskList = null;
+            String redisGetTasks = RedisKeyProperties.getPropertyValue("redis_get_tasks");
+            try {
+                String taskListRedis = redisService.get(redisGetTasks);
+                if (taskListRedis == null) {
+                    taskList = taskService.getTasks();
+                    redisService.set(redisGetTasks, OBJECT_MAPPER.writeValueAsString(taskList));
+                }
+                if (taskListRedis != null) {
+                    JavaType javaType = JsonTool.getCollectionType(ArrayList.class, Task.class);
+                    taskList = OBJECT_MAPPER.readValue(taskListRedis, javaType);
+//                    taskList=  ( List<Task>) OBJECT_MAPPER.readValue(taskListRedis,javaType);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                LOGGER.error("从redis中获取全部任务列表失败！！" + e);
+            }
+
             for (Task task : taskList) {
                 TaskLogBean taskLog = new TaskLogBean();
                 taskLog.setTaskId(task.getId());
                 taskLog.setTaskName(task.getName());
                 taskLog.setUserId(userId);
+                String redisGetStepByTaskId = RedisKeyProperties.getPropertyValue("redis_get_step_by_taskId");
+                List<StepBean> stepList = null;
+                try {
+                    String stepListRedis = redisService.get(redisGetStepByTaskId + "_" + task.getId());
+                    if (stepListRedis == null) {
+                        stepList = stepService.getSteps(task.getId());//可加入redis
+                        redisService.set(redisGetStepByTaskId + "_" + task.getId(), OBJECT_MAPPER.writeValueAsString(stepList));
+                    }
+                    if (stepListRedis != null) {
+                        JavaType javaType = JsonTool.getCollectionType(ArrayList.class, StepBean.class);
+                        stepList = OBJECT_MAPPER.readValue(stepListRedis, javaType);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LOGGER.error("根据taskId从redis中获取stepList失败，taskId=" + task.getId(), e);
+                }
 
-                List<StepBean> stepList = stepService.getSteps(task.getId());
                 for (StepBean stepBean : stepList) {
                     taskLog.setStepId(stepBean.getStepId());
                     taskLog.setTaskIntegration(stepBean.getIntegral());

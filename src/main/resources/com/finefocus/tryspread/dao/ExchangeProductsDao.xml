@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.finefocus.tryspread.dao.ExchangeProductsDao">
     <select id="getExchangeProducts" resultType="com.finefocus.tryspread.pojo.ExchangeProductsBean">
-        SELECT id,name,icon,ratio,type FROM exchange_products
+        SELECT id,name,icon,ratio,type,des FROM exchange_products
     </select>
     <select id="getRatioById" resultType="java.lang.Integer">
         SELECT ratio FROM exchange_products WHERE id= #{id}

@@ -1,14 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - chatroom@138.128.201.85" uuid="7ef5af49-20d7-4f1a-ad1a-7c26c67e2a8b">
-    <database-info product="MySQL" version="5.1.73" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
-      <extra-name-characters>#@</extra-name-characters>
-      <identifier-quote-string>`</identifier-quote-string>
-    </database-info>
-    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
-    <schema name="" catalog="chatroom"/>
-    <table name="u_user" schema="" catalog="chatroom" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi3aWQ=" autoIncrement="true"/>
+  <data-source name="DEV" uuid="b9556214-8aa8-460d-b787-8e9a86f964c0">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <schema name="" catalog="tryspread"/>
+    <table name="exchange_products" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5YWR5o2i55qE5ZWG5ZOB6KGoaWQ=" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5ZWG5ZOB5ZCN56ew"/>
+      <column name="icon" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5ZWG5ZOB5Zu+56Wo"/>
+      <column name="ratio" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5ZWG5ZOB5YWR5o2i5q+U546H"/>
+      <column name="type" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5ZWG5ZOB57G75Z6LMemcgOimgXFx5Y+3IDLpnIDopoHmiYvmnLrlj7cgMyDpnIDopoHmlK/ku5jlrp3luJDlj7fot5/lp5PlkI0="/>
+      <column name="des" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_apk" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="YXBraWQ=" autoIncrement="true"/>
+      <column name="task_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="start_date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="5byA5aeL5pel5pyf"/>
+      <column name="end_date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="57uT5p2f5pel5pyf"/>
+      <column name="start_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5byA5aeL5pe26Ze0"/>
+      <column name="end_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="57uT5p2f5pe26Ze0"/>
+      <column name="limited" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6ZmQ6YeP"/>
+      <column name="apk_url" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="YXBr5LiL6L296ZO+5o6l"/>
+      <column name="state" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="MOS7o+ihqOacquWQr+eUqCAx5Luj6KGo5ZCv55So"/>
+      <column name="weight" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5p2D6YeN5YC8"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_step" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75Yqh5q2l6aqk6KGoaWQ=" autoIncrement="true"/>
+      <column name="task_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75Yqh6KGoaWQ="/>
+      <column name="step_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75YqhaWQ="/>
+      <column name="des" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5Lu75Yqh5o+P6L+w"/>
+      <column name="use_days" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5L2/55So5aSp5pWw"/>
+      <column name="use_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5L2/55So5pe25bi4"/>
+      <column name="integral" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6K+l5q2l6aqk5omA6I635b6X55qE56ev5YiG"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_task" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75YqhaWQ=" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5Lu75Yqh5ZCN56ew"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75Yqh57G75Z6L"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_task_info" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75Yqh5Z+656GA5L+h5oGv6KGoaWQ=" autoIncrement="true"/>
+      <column name="task_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75Yqh6KGoaWQ="/>
+      <column name="app_size" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="YXBw5aSn5bCP"/>
+      <column name="app_introduce" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="YXBw5LuL57uN"/>
+      <column name="ext_url" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="YXBw5Zyw5Z2A"/>
+      <column name="app_des" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="YXBw5o+P6L+w"/>
+      <column name="app_package" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="YXBw5YyF5ZG9"/>
+      <column name="app_icon" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="YXBw5Zu+5qCHVVJs"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="u_advertisers" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5bm/5ZGK5Li7aWQ="/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5ZCN56ew"/>
+      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="55S16K+d"/>
+      <column name="qq" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="cXHlj7fnoIE="/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6YKu566x5Zyw5Z2A"/>
+      <column name="id_number" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6Lqr5Lu96K+B5Y+3"/>
+      <column name="bank_account" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5byA5oi36KGM"/>
+      <column name="account_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5byA5oi35aeT5ZCN"/>
+      <column name="bank_account_id" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6ZO26KGM6LSm5Y+3"/>
+      <column name="bank_address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5byA5oi36KGM5Zyw5Z2A"/>
+      <column name="settlement_period" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="57uT566X5ZGo5pyf"/>
+      <column name="remarks" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5aSH5rOo"/>
+      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93" remarks="5Yib5bu65pe26Ze0"/>
+    </table>
+    <table name="u_exchange_record" schema="" catalog="tryspread" type="TABLE">
+      <column name="item_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5YWR5o2i54mp5ZOB5ZCN56ew"/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5YWR5o2i6K6w5b2V6KGoaWQ=" autoIncrement="true"/>
+      <column name="exchange_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93" remarks="5YWR5o2i54mp5ZOB5pe26Ze0"/>
+      <column name="exchange_integral" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5raI6ICX56ev5YiG"/>
+      <column name="user_Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi36KGoaWQ="/>
+      <column name="state" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5YWR5o2i54q25oCB"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="u_integral" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="56ev5YiG6KGoaWQ=" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi36KGoaWQ="/>
+      <column name="total_integral" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5oC756ev5YiG"/>
+      <column name="current_integration" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5b2T5YmN56ev5YiG"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="u_invitation_record" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6YKA6K+36K6w5b2V6KGoaWQ=" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi3aWQ="/>
+      <column name="invitation_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="6YKA6K+35pe26Ze0"/>
+      <column name="invitation_class" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6YKA6K+3562J57qn"/>
+      <column name="be_invited_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="u_task_log" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi35Lu75Yqh5L+h5oGv6KGoaWQ=" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi36KGoaWQ="/>
+      <column name="task_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75Yqh6KGoaWQ="/>
+      <column name="step_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75Yqh5q2l6aqk6KGoaWQ="/>
+      <column name="task_creat_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93" remarks="5Lu75Yqh5Yib5bu65pe26Ze0"/>
+      <column name="task_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5Lu75Yqh5ZCN56ew"/>
+      <column name="task_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93" remarks="5Lu75Yqh5a6M5oiQ5pe26Ze0"/>
+      <column name="task_integration" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Lu75Yqh6I635b6X56ev5YiG"/>
+      <column name="state" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="MOacquWujOaIkDHlrozmiJA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="abc" unique="true" columns="user_id,task_id,step_id"/>
+    </table>
+    <table name="u_user" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi3aWQ="/>
       <column name="imei" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5Zu96ZmF56e75Yqo6K6+5aSH5qCH6K+G"/>
       <column name="imsi" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5Zu96ZmF56e75Yqo55So5oi36K+G5Yir56CB"/>
       <column name="os" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5omL5py65pON5L2c57O757uf"/>
@@ -17,11 +114,14 @@
       <column name="screen" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5omL5py65YiG6L6o546H"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
-    <table name="user" schema="" catalog="chatroom" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="username" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="type" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+    <table name="u_user_info" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi35L+h5oGv5omp5bGV6KGoaWQ=" autoIncrement="true"/>
+      <column name="u_user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi36KGoaWQ="/>
+      <column name="qq" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="cXHlj7fnoIE="/>
+      <column name="phone" sqlType="VARCHAR" precision="11" scale="0" nullable="true" jdbcType="12" remarks="5omL5py65Y+3"/>
+      <column name="alipay" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5pSv5LuY5a6d5biQ5Y+3"/>
+      <column name="alipay_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5pSv5LuY5a6d5aeT5ZCN"/>
+      <column name="we_chat_id" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5b6u5L+haWQ="/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
   </data-source>

@@ -14,7 +14,15 @@ public class ExchangeProductsBean {
     private String icon;//图标url
     private Integer ratio;//比率
     private String type;//商品类型1需要qq号 2需要手机号 3 需要支付宝帐号跟姓名
+    private String des;//描述
 
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
 
     public String getType() {
         return type;

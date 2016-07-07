@@ -56,52 +56,66 @@ public class ExchangeRecordServiceImpl implements ExchangeRecordService {
         exchangeRecord.setExchangeTime(new Date());
         exchangeRecord.setExchangeIntegral(exchangeIntegral);
         exchangeRecord.setItemName(exchangeProductsBean.getName());
-//        Integer id= null;
-        if (type.equals("1")) {
-            //type是1 需要的是QQ号
-            Integer qq = userInfoBean.getQq();
-            if (qq != null) {
-                //保存兑换记录是已提交
-                exchangeRecord.setState(0);
-                exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
+        if (userInfoBean != null) {
+            if (type.equals("1")) {
+                //type是1 需要的是QQ号
+                Integer qq = userInfoBean.getQq();
+                if (qq != null) {
+                    //保存兑换记录是已提交
+                    exchangeRecord.setState(0);
+                    exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
 //                id=exchangeRecord.getId();
 
-            }
-            if (qq == null) {
-                //非法操作 退还积分
-                IntegralBean integralBean = integralDao.IntegralByUserId(exchangeInformation.getUserId());
-                integralDao.updateCurrentIntegrationByUserId(integralBean.getCurrentIntegration() + exchangeIntegral, exchangeInformation.getUserId());
-            }
+                }
+                if (qq == null) {
+                    //非法操作 退还积分
+                    IntegralBean integralBean = integralDao.IntegralByUserId(exchangeInformation.getUserId());
+                    integralDao.updateCurrentIntegrationByUserId(integralBean.getCurrentIntegration() + exchangeIntegral, exchangeInformation.getUserId());
+                    //保存记录是失败状态
+                    exchangeRecord.setState(2);
+                    exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
+                }
 
-        }
-        if (type.equals("2")) {
-            //type是1 需要的是QQ号
-            String phone = userInfoBean.getPhone();
-            if (phone != null) {
-                //保存兑换记录是已提交
-                exchangeRecord.setState(0);
-                exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
+            }
+            if (type.equals("2")) {
+                //type是1 需要的是QQ号
+                String phone = userInfoBean.getPhone();
+                if (phone != null) {
+                    //保存兑换记录是已提交
+                    exchangeRecord.setState(0);
+                    exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
 //                id=exchangeRecord.getId();
 
+                }
+                if (phone == null) {
+                    //非法操作 退还积分
+                    IntegralBean integralBean = integralDao.IntegralByUserId(exchangeInformation.getUserId());
+                    integralDao.updateCurrentIntegrationByUserId(integralBean.getCurrentIntegration() + exchangeIntegral, exchangeInformation.getUserId());
+                    exchangeRecord.setState(2);
+                    exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
+                }
+
             }
-            if (phone == null) {
-                //非法操作 退还积分
-                IntegralBean integralBean = integralDao.IntegralByUserId(exchangeInformation.getUserId());
-                integralDao.updateCurrentIntegrationByUserId(integralBean.getCurrentIntegration() + exchangeIntegral, exchangeInformation.getUserId());
+            if (type.equals("3")) {
+                String alipay = userInfoBean.getAlipay();
+                String alipayName = userInfoBean.getAlipayName();
+                if (alipay != null && alipayName != null) {
+                    exchangeRecord.setState(0);
+                    exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
+                }
+                if (alipay == null || alipayName == null) {
+                    IntegralBean integralBean = integralDao.IntegralByUserId(exchangeInformation.getUserId());
+                    integralDao.updateCurrentIntegrationByUserId(integralBean.getCurrentIntegration() + exchangeIntegral, exchangeInformation.getUserId());
+                    exchangeRecord.setState(2);
+                    exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
+                }
             }
 
-        }
-        if (type.equals("3")) {
-            String alipay = userInfoBean.getAlipay();
-            String alipayName = userInfoBean.getAlipayName();
-            if (alipay != null && alipayName != null) {
-                exchangeRecord.setState(0);
-                exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
-            }
-            if (alipay == null || alipayName == null) {
-                IntegralBean integralBean = integralDao.IntegralByUserId(exchangeInformation.getUserId());
-                integralDao.updateCurrentIntegrationByUserId(integralBean.getCurrentIntegration() + exchangeIntegral, exchangeInformation.getUserId());
-            }
+        } else {
+            IntegralBean integralBean = integralDao.IntegralByUserId(exchangeInformation.getUserId());
+            integralDao.updateCurrentIntegrationByUserId(integralBean.getCurrentIntegration() + exchangeIntegral, exchangeInformation.getUserId());
+            exchangeRecord.setState(2);
+            exchangeRecordDao.saveExchangeRecordBean(exchangeRecord);
         }
 
     }
