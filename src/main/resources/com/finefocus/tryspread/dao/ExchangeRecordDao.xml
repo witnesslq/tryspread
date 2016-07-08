@@ -7,6 +7,6 @@
         (#{itemName},#{exchangeTime},#{exchangeIntegral},#{userId},#{state})
     </insert>
     <select id="getExchangeRecordByUserId" resultType="com.finefocus.tryspread.pojo.ExchangeRecordBean">
-        SELECT item_name,exchange_time,exchange_integral,state FROM u_exchange_record WHERE user_Id=#{userId}
+        SELECT id,user_Id,item_name,exchange_time,exchange_integral,state FROM u_exchange_record WHERE user_Id=#{userId}
     </select>
 </mapper>

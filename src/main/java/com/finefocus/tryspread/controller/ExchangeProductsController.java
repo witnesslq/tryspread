@@ -12,13 +12,11 @@ import com.finefocus.tryspread.service.ExchangeProductsService;
 import com.finefocus.tryspread.service.ExchangeRecordService;
 import com.finefocus.tryspread.service.IntegralService;
 import com.finefocus.tryspread.service.RedisService;
+import com.sun.org.apache.xerces.internal.dom.PSVIAttrNSImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -126,6 +124,25 @@ public class ExchangeProductsController {
 
         }
         return map;
+    }
+
+    @RequestMapping(value = "getExchangeRecord/{userId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getExchangeRecord(@PathVariable Integer userId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<ExchangeRecordBean> exchangeRecords = exchangeRecordService.getExchangeRecordByUserId(userId);
+        if (exchangeRecords.isEmpty()) {
+            map.put(CodeAndMsg.RESULT, CodeAndMsg.ERROR);
+            map.put(CodeAndMsg.CODE, CodeAndMsg.ExchangeRecordsIsNull);
+            map.put(CodeAndMsg.MSG, "兑换申请记录为空");
+            return map;
+        } else {
+            map.put(CodeAndMsg.RESULT, CodeAndMsg.SUCCESS);
+            map.put(CodeAndMsg.CODE, CodeAndMsg.OK);
+            map.put(CodeAndMsg.MSG, "获取兑换申请记录成功");
+            map.put(CodeAndMsg.DATA, exchangeRecords);
+            return map;
+        }
     }
 
 }

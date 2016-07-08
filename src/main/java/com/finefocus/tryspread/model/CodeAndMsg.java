@@ -30,6 +30,7 @@ public class CodeAndMsg {
     public static final String ExchangeListingIsOk = "211";//获取可兑换列表成功
     public static final String EnoughPoints = "212";//积分不够
     public static final String PointsAreDeducted = "213";//积分已扣除
+    public static final String ExchangeRecordsIsNull = "214";//积分已扣除
 
 
 }
