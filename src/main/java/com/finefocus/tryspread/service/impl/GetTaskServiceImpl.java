@@ -156,7 +156,7 @@ public class GetTaskServiceImpl implements GetTaskService {
             Date taskTimeOk = stepService.getTaskLogTaskTimeByUserIdAndTaskId(userId, taskId);
             boolean comparisonDate = DateTool.comparisonDate(taskCreatTime, taskTimeOk, useDays);
             if (comparisonDate) {
-                LOGGER.info("UserId : " + userId + "taskId " + taskId + "stepId " + stepId + " 天数间隔够！");
+                LOGGER.info("UserId : [" + userId + "]taskId :[ " + taskId + "]stepId :[" + stepId + " ]天数间隔够！");
                 //天数间隔够了
                 //当前时间- 任务创建时间是否满足分钟数要求
                 boolean comparisonMin = DateTool.comparisonMin(taskCreatTime, new Date(), stepBean.getUseTime());
@@ -176,7 +176,7 @@ public class GetTaskServiceImpl implements GetTaskService {
                     map.put(CodeAndMsg.CODE, CodeAndMsg.OK);
                     map.put(CodeAndMsg.MSG, "任务执行完毕");
                     map.put(CodeAndMsg.DATA, synchronizationTask);
-                    LOGGER.info("UserId : " + userId + "taskId " + taskId + "stepId " + stepId + " 任务执行完毕！");
+                    LOGGER.info("UserId : [" + userId + "]taskId : [" + taskId + "] stepId :[ " + stepId + "] 任务执行完毕！");
                     return map;
                 } else {
                     synchronizationTask.setIntegral(integralBean);
@@ -185,7 +185,7 @@ public class GetTaskServiceImpl implements GetTaskService {
                     map.put(CodeAndMsg.CODE, CodeAndMsg.MinutesIsNotEnough);
                     map.put(CodeAndMsg.MSG, "分钟数不够");
                     map.put(CodeAndMsg.DATA, synchronizationTask);
-                    LOGGER.info("UserId : " + userId + "taskId " + taskId + "stepId " + stepId + " 分钟间隔不够！");
+                    LOGGER.info("UserId : [" + userId + "] taskId :[" + taskId + "] stepId :[ " + stepId + " ]分钟间隔不够！");
                     return map;
                 }
 
@@ -196,7 +196,7 @@ public class GetTaskServiceImpl implements GetTaskService {
                 map.put(CodeAndMsg.CODE, CodeAndMsg.DAYIsNotEnough);
                 map.put(CodeAndMsg.MSG, "间隔天数不够");
                 map.put(CodeAndMsg.DATA, synchronizationTask);
-                LOGGER.info("UserId : " + userId + "taskId " + taskId + "stepId " + stepId + " 间隔天数不够！");
+                LOGGER.info("UserId :[ " + userId + "] taskId :[" + taskId + "] stepId :[" + stepId + "] 间隔天数不够！");
                 return map;
             }
         }
@@ -210,7 +210,7 @@ public class GetTaskServiceImpl implements GetTaskService {
             map.put(CodeAndMsg.CODE, CodeAndMsg.TaskCreateOk);
             map.put(CodeAndMsg.MSG, "任务创建完成");
             map.put(CodeAndMsg.DATA, synchronizationTask);
-            LOGGER.info("UserId : " + userId + "taskId " + taskId + "stepId " + stepId + " 任务创建完成！！");
+            LOGGER.info("UserId : [" + userId + "] taskId :[ " + taskId + "] stepId :[ " + stepId + "] 任务创建完成！！");
             return map;
         }
         if (taskLog.getState() == 1) {
@@ -222,7 +222,7 @@ public class GetTaskServiceImpl implements GetTaskService {
             map.put(CodeAndMsg.CODE, CodeAndMsg.TaskIsOK);
             map.put(CodeAndMsg.MSG, "该任务已经完成");
             map.put(CodeAndMsg.DATA, synchronizationTask);
-            LOGGER.info("UserId : " + userId + "taskId " + taskId + "stepId " + stepId + " 任务已经完成！！");
+            LOGGER.info("UserId : [ " + userId + " ] taskId :[" + taskId + "]stepId :[" + stepId + "] 任务已经完成！！");
             return map;
         }
 
