@@ -23,8 +23,9 @@ public class DateTool {
             return true;
         }
 //        long createTimeTime = createTime.getTime();
-        int createTimeDay = createTime.getDay();
-        int currentTimeDay = currentTime.getDay();
+//        int createTimeDay = createTime.getDay();
+        int createTimeDay = createTime.getDate();
+        int currentTimeDay = currentTime.getDate();
 //        long currentTimeTime = currentTime.getTime();
         if (createTimeDay >= currentTimeDay) {
 //            int i = (int) (createTimeDay - currentTimeDay) / 86400000;
