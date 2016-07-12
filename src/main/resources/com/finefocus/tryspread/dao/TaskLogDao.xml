@@ -35,4 +35,8 @@
     <select id="getTaskLogByUserIdAndTaskIdAndState" resultType="java.lang.Integer">
         SELECT step_id FROM u_task_log WHERE user_id=#{userId} AND task_id=#{taskId} AND state=#{state}
     </select>
+    <select id="getUserIdAndIntegrationSumByDate" resultType="java.util.Map">
+        SELECT sum(task_integration) as integration_sum,user_id FROM u_task_log WHERE task_time LIKE #{date} AND
+        state=1;
+    </select>
 </mapper>

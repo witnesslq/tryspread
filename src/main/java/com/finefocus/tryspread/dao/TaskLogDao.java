@@ -45,4 +45,6 @@ public interface TaskLogDao {
     void createTask(@Param("userId") Integer userId, @Param("taskId") Integer taskId, @Param("stepId") Integer stepId, @Param("state") int state, @Param("date") Date date);
 
     void completeTask(@Param("userId") Integer userId, @Param("taskId") Integer taskId, @Param("stepId") Integer stepId, @Param("state") int state, @Param("taskTime") Date taskTime);
+
+    List<Map<String, Object>> getUserIdAndIntegrationSumByDate(String date);
 }

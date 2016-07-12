@@ -13,4 +13,8 @@ import java.util.List;
  */
 public interface InvitationRecordService {
     List<InvitationRecordBean> getInvitationRecordByUserId(int parentId);
+
+    Integer getParentIdByUserId(int userId);
+
+    Integer getGrandpaIdByUserId(int userId);
 }

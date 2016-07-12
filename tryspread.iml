@@ -6,6 +6,7 @@
         <fileset id="web application context" name="MVC application context" removed="true">
           <file>file://$MODULE_DIR$/src/main/resources/applicationContext-redis.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext-quartz.xml</file>
         </fileset>
         <fileset id="web springServlet servlet context" name="MVC springServlet servlet context" removed="true">
           <file>file://$MODULE_DIR$/src/main/resources/spring-mvc.xml</file>

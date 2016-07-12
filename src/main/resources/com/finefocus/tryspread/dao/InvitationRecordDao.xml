@@ -4,4 +4,7 @@
     <select id="getInvitationRecordByUserId" resultType="com.finefocus.tryspread.pojo.InvitationRecordBean">
         SELECT * FROM u_invitation_record WHERE be_invited_id = #{parentId}
     </select>
+    <select id="getParentIdByUserId" resultType="java.lang.Integer">
+        SELECT be_invited_id FROM u_invitation_record WHERE user_id=#{userId}
+    </select>
 </mapper>

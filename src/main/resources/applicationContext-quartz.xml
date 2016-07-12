@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+
+    <!-- 定义任务描述 引入任务-->
+    <bean class="org.springframework.scheduling.quartz.JobDetailFactoryBean" id="jobDetail">
+        <property name="jobClass" value="com.finefocus.tryspread.quartz.IntegrationJob"/>
+        <property name="group" value="integration"/>
+        <property name="name" value="integrationJob"/>
+        <property name="applicationContextJobDataKey" value="applicationContext"/>
+        <property name="durability" value="true"/>
+    </bean>
+    <!-- 定义标准触发器 引入任务描述 与触发器表达式-->
+    <bean class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" id="trigger">
+        <property name="jobDetail" ref="jobDetail"/>
+        <!--<property name="cronExpression" value="0 0 23 * * ?"/>-->
+        <property name="cronExpression" value="0 */1 * * * ?"/>
+    </bean>
+    <!-- 定义调度器 引入标准触发器-->
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="trigger"/>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>

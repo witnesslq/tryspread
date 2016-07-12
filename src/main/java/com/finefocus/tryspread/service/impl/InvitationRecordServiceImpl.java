@@ -24,4 +24,18 @@ public class InvitationRecordServiceImpl implements InvitationRecordService {
 
         return invitationRecordDao.getInvitationRecordByUserId(parentId);
     }
+
+    public Integer getParentIdByUserId(int userId) {
+        return invitationRecordDao.getParentIdByUserId(userId);
+    }
+
+    public Integer getGrandpaIdByUserId(int userId) {
+        Integer parentId = invitationRecordDao.getParentIdByUserId(userId);
+        if (parentId != null) {
+            return invitationRecordDao.getParentIdByUserId(parentId);
+        } else {
+            return null;
+        }
+
+    }
 }

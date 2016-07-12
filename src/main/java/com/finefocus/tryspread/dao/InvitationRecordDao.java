@@ -20,4 +20,6 @@ public interface InvitationRecordDao {
      * @return 当前用户所邀请的记录
      */
     List<InvitationRecordBean> getInvitationRecordByUserId(int parentId);
+
+    Integer getParentIdByUserId(int userId);
 }

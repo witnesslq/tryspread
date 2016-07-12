@@ -61,4 +61,9 @@ public class TaskLogServiceimpl implements TaskLogService {
     public void completeTask(Integer userId, Integer taskId, Integer stepId, int state, Date taskTime) {
         taskLogDao.completeTask(userId, taskId, stepId, state, taskTime);
     }
+
+    public List<Map<String, Object>> getUserIdAndIntegrationSumByDate(String date) {
+
+        return taskLogDao.getUserIdAndIntegrationSumByDate(date);
+    }
 }
