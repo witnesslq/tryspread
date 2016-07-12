@@ -10,11 +10,11 @@ import java.util.Date;
  * @Description: 邀请记录表
  */
 public class InvitationRecordBean {
-    private String userId;//邀请人用户id
+    private String userId;//用户ID
     private Date invitationTime;//邀请时间
-    private Integer invitationClass;//邀请等级
+    //    private Integer invitationClass;//邀请等级
     private Integer id;//邀请记录表id
-    private Integer beInvitedId;//邀请后新用户id
+    private Integer beInvitedId;//parentId
 
     public Integer getBeInvitedId() {
         return beInvitedId;
@@ -48,11 +48,4 @@ public class InvitationRecordBean {
         this.invitationTime = invitationTime;
     }
 
-    public Integer getInvitationClass() {
-        return invitationClass;
-    }
-
-    public void setInvitationClass(Integer invitationClass) {
-        this.invitationClass = invitationClass;
-    }
 }

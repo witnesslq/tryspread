@@ -19,5 +19,5 @@ public interface InvitationRecordDao {
      * @param userId 用户id
      * @return 当前用户所邀请的记录
      */
-    List<InvitationRecordBean> getInvitationRecordByUserId(int userId);
+    List<InvitationRecordBean> getInvitationRecordByUserId(int parentId);
 }

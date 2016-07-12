@@ -20,8 +20,8 @@ public class InvitationRecordServiceImpl implements InvitationRecordService {
     @Autowired
     private InvitationRecordDao invitationRecordDao;
 
-    public List<InvitationRecordBean> getInvitationRecordByUserId(int userId) {
+    public List<InvitationRecordBean> getInvitationRecordByUserId(int parentId) {
 
-        return invitationRecordDao.getInvitationRecordByUserId(userId);
+        return invitationRecordDao.getInvitationRecordByUserId(parentId);
     }
 }

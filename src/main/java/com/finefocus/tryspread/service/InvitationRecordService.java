@@ -12,5 +12,5 @@ import java.util.List;
  * @Description: ${todo}
  */
 public interface InvitationRecordService {
-    List<InvitationRecordBean> getInvitationRecordByUserId(int userId);
+    List<InvitationRecordBean> getInvitationRecordByUserId(int parentId);
 }

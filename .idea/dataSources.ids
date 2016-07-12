@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="DEV" uuid="b9556214-8aa8-460d-b787-8e9a86f964c0">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <database-info product="MySQL" version="5.1.73" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
     <schema name="" catalog="tryspread"/>
     <table name="exchange_products" schema="" catalog="tryspread" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5YWR5o2i55qE5ZWG5ZOB6KGoaWQ=" autoIncrement="true"/>
@@ -87,7 +91,6 @@
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6YKA6K+36K6w5b2V6KGoaWQ=" autoIncrement="true"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi3aWQ="/>
       <column name="invitation_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="6YKA6K+35pe26Ze0"/>
-      <column name="invitation_class" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6YKA6K+3562J57qn"/>
       <column name="be_invited_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
