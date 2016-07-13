@@ -57,7 +57,7 @@
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="u_advertisers" schema="" catalog="tryspread" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5bm/5ZGK5Li7aWQ="/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5bm/5ZGK5Li7aWQ="/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5ZCN56ew"/>
       <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="55S16K+d"/>
       <column name="qq" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="cXHlj7fnoIE="/>
@@ -70,6 +70,16 @@
       <column name="settlement_period" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="57uT566X5ZGo5pyf"/>
       <column name="remarks" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5aSH5rOo"/>
       <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="state" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="MCDlkK/liqjnirbmgIEgMeaYr+iCpeWQr+eUqOeKtuaAgQ=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="u_channel_pac_url" schema="" catalog="tryspread" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="update_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="download_url" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="u_exchange_record" schema="" catalog="tryspread" type="TABLE">
       <column name="item_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5YWR5o2i54mp5ZOB5ZCN56ew"/>
@@ -92,6 +102,7 @@
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi3aWQ="/>
       <column name="invitation_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="6YKA6K+35pe26Ze0"/>
       <column name="be_invited_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="invitation_class" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="u_task_log" schema="" catalog="tryspread" type="TABLE">
