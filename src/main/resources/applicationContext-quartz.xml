@@ -15,8 +15,8 @@
     <!-- 定义标准触发器 引入任务描述 与触发器表达式-->
     <bean class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" id="trigger">
         <property name="jobDetail" ref="jobDetail"/>
-        <!--<property name="cronExpression" value="0 0 23 * * ?"/>-->
-        <property name="cronExpression" value="0 */1 * * * ?"/>
+        <property name="cronExpression" value="0 0 23 * * ?"/>
+        <!--<property name="cronExpression" value="0 */1 * * * ?"/>-->
     </bean>
     <!-- 定义调度器 引入标准触发器-->
 

@@ -1,5 +1,7 @@
 package com.finefocus.tryspread.service;
 
+import com.finefocus.tryspread.pojo.ChannelPacUrlBean;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -14,4 +16,6 @@ public interface ChannelPacUrlService {
     String getUrlByUserId(Integer userId);
 
     String getUrlByUserIdFromLocal(HttpServletRequest request, Integer userId);
+
+    void UploadApkToCdn(ChannelPacUrlBean channelPacUrlBean);
 }

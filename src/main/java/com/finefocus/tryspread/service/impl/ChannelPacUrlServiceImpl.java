@@ -1,15 +1,18 @@
 package com.finefocus.tryspread.service.impl;
 
+import com.finefocus.tryspread.apkprocessor.ApkCndManager;
 import com.finefocus.tryspread.common.MCPTool;
 import com.finefocus.tryspread.common.RedisKeyProperties;
 import com.finefocus.tryspread.common.UrlTool;
 import com.finefocus.tryspread.dao.ChannelPacUrlDao;
+import com.finefocus.tryspread.pojo.ChannelPacUrlBean;
 import com.finefocus.tryspread.service.ChannelPacUrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.HashMap;
 
 /**
  * @author WenhuChang
@@ -50,6 +53,11 @@ public class ChannelPacUrlServiceImpl implements ChannelPacUrlService {
                     MCPTool.writeChannelAndGetPath(String.valueOf(userId));
                     downUrl = UrlTool.getRequestUrl(request) + apkChannelName;
                     //生成apk渠道文件后异步上传到cdn，并添加cdn表记录
+                    ChannelPacUrlBean channelPacUrl = new ChannelPacUrlBean();
+                    channelPacUrl.setUserId(userId);
+                    channelPacUrl.setFilePath(apkChannelPath.getPath());
+                    //添加到上传cdn队列
+                    ApkCndManager.addRequest(channelPacUrl);
                     return downUrl;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -58,5 +66,9 @@ public class ChannelPacUrlServiceImpl implements ChannelPacUrlService {
 
         }
         return downUrl;
+    }
+
+    public void UploadApkToCdn(ChannelPacUrlBean channelPacUrlBean) {
+        System.out.println("上传apk渠道包文件到cdn");
     }
 }

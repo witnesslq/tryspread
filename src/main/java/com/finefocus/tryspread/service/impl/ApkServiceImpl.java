@@ -2,6 +2,7 @@ package com.finefocus.tryspread.service.impl;
 
 import com.finefocus.tryspread.dao.ApkDao;
 import com.finefocus.tryspread.pojo.ApkBean;
+import com.finefocus.tryspread.pojo.ChannelPacUrlBean;
 import com.finefocus.tryspread.service.ApkService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +61,5 @@ public class ApkServiceImpl implements ApkService {
     public void setStateByApkId(Integer apkId) {
         apkDao.setStateByApkId(apkId);
     }
+
 }

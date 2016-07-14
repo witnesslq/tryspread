@@ -1,6 +1,7 @@
 package com.finefocus.tryspread.service;
 
 import com.finefocus.tryspread.pojo.ApkBean;
+import com.finefocus.tryspread.pojo.ChannelPacUrlBean;
 
 import java.util.Map;
 
@@ -21,4 +22,5 @@ public interface ApkService {
     Integer getLimitedByApkId(Integer apkId);
 
     void setStateByApkId(Integer apkId);
+
 }

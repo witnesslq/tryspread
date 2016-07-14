@@ -1,5 +1,8 @@
 package com.finefocus.tryspread.processor;
 
+import com.finefocus.tryspread.apkprocessor.ApkCndManager;
+import com.finefocus.tryspread.apkprocessor.ApkCndRequestProcessor;
+import com.finefocus.tryspread.service.ChannelPacUrlService;
 import com.finefocus.tryspread.service.ExchangeRecordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +24,8 @@ public class ExchangeInitialListener implements ApplicationListener<ContextRefre
     protected Logger logger = LoggerFactory.getLogger(ExchangeInitialListener.class);
     @Autowired
     private ExchangeRecordService exchangeRecordService;
+    @Autowired
+    private ChannelPacUrlService channelPacUrlService;
 
     @Autowired
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
@@ -30,6 +35,11 @@ public class ExchangeInitialListener implements ApplicationListener<ContextRefre
         if (ExchangeManager.getRequestProcessor() == null) {
             ExchangeManager.setRequestProcessor(new ExchangeRequestProcessor(threadPoolTaskExecutor, exchangeRecordService));
             ExchangeManager.startProcessor();
+        }
+
+        if (ApkCndManager.getRequestProcessor() == null) {
+            ApkCndManager.setRequestProcessor(new ApkCndRequestProcessor(threadPoolTaskExecutor, channelPacUrlService));
+            ApkCndManager.startProcessor();
         }
 
     }
