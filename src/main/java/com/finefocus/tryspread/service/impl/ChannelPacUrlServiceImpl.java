@@ -4,15 +4,19 @@ import com.finefocus.tryspread.apkprocessor.ApkCndManager;
 import com.finefocus.tryspread.common.MCPTool;
 import com.finefocus.tryspread.common.RedisKeyProperties;
 import com.finefocus.tryspread.common.UrlTool;
+import com.finefocus.tryspread.common.YouPaiYunTool;
 import com.finefocus.tryspread.dao.ChannelPacUrlDao;
 import com.finefocus.tryspread.pojo.ChannelPacUrlBean;
 import com.finefocus.tryspread.service.ChannelPacUrlService;
+import main.java.com.UpYun;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.HashMap;
+import java.util.Date;
 
 /**
  * @author WenhuChang
@@ -23,6 +27,8 @@ import java.util.HashMap;
  */
 @Service(value = "channelPacUrlService")
 public class ChannelPacUrlServiceImpl implements ChannelPacUrlService {
+    protected Logger LOGGER = LoggerFactory.getLogger(ChannelPacUrlServiceImpl.class);
+
     @Autowired
     private ChannelPacUrlDao channelPacUrlDao;
 
@@ -70,5 +76,40 @@ public class ChannelPacUrlServiceImpl implements ChannelPacUrlService {
 
     public void UploadApkToCdn(ChannelPacUrlBean channelPacUrlBean) {
         System.out.println("上传apk渠道包文件到cdn");
+        //本地文件路径
+        String filePath = channelPacUrlBean.getFilePath();
+        if (filePath.contains("\\")) {
+            filePath = filePath.replaceAll("\\\\", "/");
+        }
+        //用户id
+        Integer userId = channelPacUrlBean.getUserId();
+        File localFile = new File(filePath);
+        if (localFile.exists()) {
+            //本地渠道包文件存在，调用cdn上传文件
+            boolean uploadFile = false;
+            try {
+                UpYun upyun = YouPaiYunTool.getUpyun();
+                uploadFile = upyun.writeFile(filePath, localFile, true);
+            } catch (Exception e) {
+                LOGGER.error(localFile.getName() + "文件上传失败~上传代码快异常" + e.getMessage());
+            }
+            if (uploadFile) {
+                LOGGER.info(localFile.getName() + "文件上传到CDN成功！！");
+                //拼接cdn下载地址
+                String downUrl = RedisKeyProperties.getPropertyValue("cdn_url") + "/" + filePath;
+                String urlByUserId = channelPacUrlDao.getUrlByUserId(userId);
+                if (urlByUserId == null) {
+                    //添加操作
+                    channelPacUrlDao.saveDownUrlAndUserId(downUrl, userId, new Date());
+                } else {
+                    //更新操作
+                    channelPacUrlDao.UpdateDownUrlByUserId(downUrl, userId, new Date());
+                }
+
+            } else {
+                LOGGER.info(localFile.getName() + "文件上传到CDN失败！！");
+            }
+
+        }
     }
 }

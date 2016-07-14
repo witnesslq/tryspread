@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.finefocus.tryspread.dao.ChannelPacUrlDao">
+    <insert id="saveDownUrlAndUserId">
+        INSERT INTO u_channel_pac_url ( user_id, create_time, update_time, download_url) VALUES
+        (#{userId},#{date},#{date},#{downUrl})
+    </insert>
+    <update id="UpdateDownUrlByUserId">
+        UPDATE u_channel_pac_url SET download_url=#{downUrl} ,update_time=#{date} WHERE user_id=#{userId}
+    </update>
     <select id="getUrlByUserId" resultType="java.lang.String">
         SELECT download_url FROM u_channel_pac_url WHERE user_id=#{userId}
     </select>

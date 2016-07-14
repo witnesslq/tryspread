@@ -1,12 +1,7 @@
 package com.finefocus.tryspread.apkprocessor;
 
-import com.finefocus.tryspread.model.ExchangeInformation;
 import com.finefocus.tryspread.pojo.ChannelPacUrlBean;
-import com.finefocus.tryspread.processor.ExchangeAsynchronousTask;
-import com.finefocus.tryspread.processor.ExchangeManager;
-import com.finefocus.tryspread.service.ApkService;
 import com.finefocus.tryspread.service.ChannelPacUrlService;
-import com.finefocus.tryspread.service.ExchangeRecordService;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
