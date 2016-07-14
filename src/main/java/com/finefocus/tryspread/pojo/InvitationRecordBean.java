@@ -1,5 +1,7 @@
 package com.finefocus.tryspread.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 /**
@@ -10,9 +12,11 @@ import java.util.Date;
  * @Description: 邀请记录表
  */
 public class InvitationRecordBean {
+    @JsonIgnore
     private String userId;//用户ID
     private Date invitationTime;//邀请时间
     //    private Integer invitationClass;//邀请等级
+    @JsonIgnore
     private Integer id;//邀请记录表id
     private Integer beInvitedId;//parentId
 

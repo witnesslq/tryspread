@@ -1,5 +1,7 @@
 package com.finefocus.tryspread.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 /**
@@ -13,7 +15,9 @@ public class ExchangeRecordBean {
     private String itemName;//兑换物品名称
     private Date exchangeTime;//兑换物品时间
     private Integer exchangeIntegral;//消耗积分
+    @JsonIgnore
     private Integer userId; //兑换用户id
+    @JsonIgnore
     private Integer id;
     private Integer state;
 

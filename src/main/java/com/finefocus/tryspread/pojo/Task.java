@@ -8,6 +8,7 @@ package com.finefocus.tryspread.pojo;
  * @Description: ${todo}
  */
 public class Task {
+    //    @JsonIgnore
     private Integer id; //任务id
     private String name;//任务名称
     private String type;//任务类型

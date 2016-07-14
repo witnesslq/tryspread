@@ -1,5 +1,7 @@
 package com.finefocus.tryspread.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author WenhuChang
  * @version Version 1.0
@@ -8,7 +10,9 @@ package com.finefocus.tryspread.pojo;
  * @Description: 积分表
  */
 public class IntegralBean {
+    @JsonIgnore
     private Integer id;//积分表id
+    @JsonIgnore
     private Integer userId;//用户id
     private Integer totalIntegral;//总积分
     private Integer currentIntegration;//当前积分

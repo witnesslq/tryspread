@@ -1,5 +1,7 @@
 package com.finefocus.tryspread.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 /**
@@ -10,7 +12,9 @@ import java.util.Date;
  * @Description: 任务记录表
  */
 public class TaskLogBean {
+    @JsonIgnore
     private Integer id;//任务表id
+    @JsonIgnore
     private Integer userId;//用户id
 
     private Integer taskId;//任务表id
