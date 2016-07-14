@@ -44,6 +44,8 @@ public class GetTaskServiceImpl implements GetTaskService {
     private RedisService redisService;
 
     public Map<String, Object> getTask(Integer userId) {
+        Integer taskid = 1;
+        Integer num = 2;
         Map<String, Object> map = new HashMap<String, Object>();
         if (userId == null) {
             map.put(CodeAndMsg.RESULT, CodeAndMsg.ERROR);
@@ -53,6 +55,7 @@ public class GetTaskServiceImpl implements GetTaskService {
         if (userId != null) {
             // 任务与用户建立关联 可加入redis
             List<Task> taskList = null;
+            List<Task> newTasks = null;
             String redisGetTasks = RedisKeyProperties.getPropertyValue("redis_get_tasks");
             try {
                 String taskListRedis = redisService.get(redisGetTasks);
@@ -63,14 +66,23 @@ public class GetTaskServiceImpl implements GetTaskService {
                 if (taskListRedis != null) {
                     JavaType javaType = JsonTool.getCollectionType(ArrayList.class, Task.class);
                     taskList = OBJECT_MAPPER.readValue(taskListRedis, javaType);
-//                    taskList=  ( List<Task>) OBJECT_MAPPER.readValue(taskListRedis,javaType);
+
+                    for (int i = 0; i < taskList.size(); i++) {
+                        if (taskList.get(i).getId() > taskid) {
+                            newTasks = taskList.subList(i, i + num);
+                            break;
+//                                newTasks.add(taskList.get(i));
+
+                        }
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 LOGGER.error("从redis中获取全部任务列表失败！！" + e);
             }
 
-            for (Task task : taskList) {
+//            for (Task task : taskList) {
+            for (Task task : newTasks) {
                 TaskLogBean taskLog = new TaskLogBean();
                 taskLog.setTaskId(task.getId());
                 taskLog.setTaskName(task.getName());
