@@ -9,4 +9,7 @@
     <select id="getTaskByTaskId" resultType="com.finefocus.tryspread.pojo.Task">
         SELECT * FROM t_task WHERE id =#{taskId}
     </select>
+    <select id="getTaskNameByTaskId" resultType="java.lang.String">
+        SELECT name FROM t_task WHERE id=#{taskId}
+    </select>
 </mapper>

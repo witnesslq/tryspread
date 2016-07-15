@@ -11,4 +11,8 @@
         SELECT task_time FROM u_task_log WHERE user_id=#{userId} AND task_id = #{taskId} AND state = 1 ORDER BY
         task_time ASC LIMIT 1
     </select>
+    <select id="getIntegralByTaskIdAndStepId" resultType="java.lang.Integer">
+        SELECT integral FROM t_step WHERE task_id=#{taskId} AND step_id=#{stepId}
+    </select>
+
 </mapper>

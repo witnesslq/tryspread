@@ -1,5 +1,7 @@
 package com.finefocus.tryspread.service.impl;
 
+import com.finefocus.tryspread.dao.StepDao;
+import com.finefocus.tryspread.dao.TaskDao;
 import com.finefocus.tryspread.dao.TaskLogDao;
 import com.finefocus.tryspread.pojo.TaskLogBean;
 import com.finefocus.tryspread.service.TaskLogService;
@@ -21,6 +23,10 @@ import java.util.Map;
 public class TaskLogServiceimpl implements TaskLogService {
     @Autowired
     private TaskLogDao taskLogDao;
+    @Autowired
+    private TaskDao taskDao;
+    @Autowired
+    private StepDao stepDao;
 
     public List<TaskLogBean> getTaskLogByUserId(int userId) {
         return taskLogDao.getTaskLogByUserId(userId);
@@ -65,5 +71,22 @@ public class TaskLogServiceimpl implements TaskLogService {
     public List<Map<String, Object>> getUserIdAndIntegrationSumByDate(String date) {
 
         return taskLogDao.getUserIdAndIntegrationSumByDate(date);
+    }
+
+    public void createNewTask(Integer userId, Integer taskId, Integer stepId) {
+        //根据taskId查找taskName
+        String taskName = taskDao.getTaskNameByTaskId(taskId);
+        //根据taskId与stepId查找到积分
+        Integer integral = stepDao.getIntegralByTaskIdAndStepId(taskId, stepId);
+        TaskLogBean taskLogBean = new TaskLogBean();
+        taskLogBean.setUserId(userId);
+        taskLogBean.setTaskId(taskId);
+        taskLogBean.setStepId(stepId);
+        taskLogBean.setTaskCreatTime(new Date());
+        taskLogBean.setTaskName(taskName);
+        taskLogBean.setTaskIntegration(integral);
+        taskLogBean.setState(2);
+        taskLogDao.createNewTask(taskLogBean);
+
     }
 }

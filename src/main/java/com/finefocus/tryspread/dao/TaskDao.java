@@ -22,4 +22,6 @@ public interface TaskDao {
     List<Task> getTasks();
 
     Task getTaskByTaskId(Integer taskId);
+
+    String getTaskNameByTaskId(Integer taskId);
 }

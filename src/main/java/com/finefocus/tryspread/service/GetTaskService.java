@@ -1,5 +1,7 @@
 package com.finefocus.tryspread.service;
 
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.Map;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Map;
  * @Description: ${todo}
  */
 public interface GetTaskService {
-    Map<String, Object> getTask(Integer userId);
+    Map<String, Object> getTask(Integer userId, Integer taskId, Integer num);
 
     Map<String, Object> syncTask(Integer userId, Integer taskId, Integer stepId);
 

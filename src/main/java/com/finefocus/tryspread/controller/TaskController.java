@@ -19,11 +19,11 @@ public class TaskController {
     @Autowired
     private GetTaskService getTaskService;
 
-    @RequestMapping(value = "getTask/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "getTask/{userId}/{taskId}/{num}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getTask(@PathVariable Integer userId) {
+    public Map<String, Object> getTask(@PathVariable Integer userId, @PathVariable Integer taskId, @PathVariable Integer num) {
 
-        Map<String, Object> map = getTaskService.getTask(userId);
+        Map<String, Object> map = getTaskService.getTask(userId, taskId, num);
         return map;
 
     }

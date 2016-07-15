@@ -44,9 +44,9 @@ public class GetTaskServiceImpl implements GetTaskService {
     @Autowired
     private RedisService redisService;
 
-    public Map<String, Object> getTask(Integer userId) {
-        Integer taskid = 0;
-        Integer num = 3;
+    public Map<String, Object> getTask(Integer userId, Integer taskid, Integer num) {
+//        Integer taskid = 0;
+//        Integer num = 3;
         Map<String, Object> map = new HashMap<String, Object>();
         if (userId == null) {
             map.put(CodeAndMsg.RESULT, CodeAndMsg.ERROR);
@@ -73,42 +73,50 @@ public class GetTaskServiceImpl implements GetTaskService {
             }
             for (int i = 0; i < taskList.size(); i++) {
                 if (taskList.get(i).getId() > taskid) {
-                    newTasks = taskList.subList(i, i + num);
-                    break;
+                    if (i + num >= taskList.size()) {
+                        newTasks = taskList.subList(i, taskList.size());
+                        break;
+                    }
+                    if (i + num < taskList.size()) {
+                        newTasks = taskList.subList(i, i + num);
+                        break;
+                    }
                 }
             }
             List<AcquisitionTask> list = new ArrayList<AcquisitionTask>();
-            for (Task task : newTasks) {
-                TaskInformationBean taskInformation = taskInfoService.getTaskInfoByTaskId(task.getId());
-                String redisGetStepByTaskId = RedisKeyProperties.getPropertyValue("redis_get_step_by_taskId");
-                Map<String, Object> apkBeanMap = apkService.getApkUrlAndApkIdToMap(task.getId());
-                if (apkBeanMap != null) {
-                    taskInformation.setApkId((Integer) apkBeanMap.get("id"));
-                    taskInformation.setApkUrl((String) apkBeanMap.get("apk_url"));
-                }
-                Integer stepId = taskLogService.getTaskLogByUserIdAndTaskId(userId, task.getId(), 2);
-                List<StepBean> stepList = null;
-                try {
-                    String stepListRedis = redisService.get(redisGetStepByTaskId + "_" + task.getId());
-                    if (stepListRedis == null) {
-                        stepList = stepService.getSteps(task.getId());//可加入redis
-                        redisService.set(redisGetStepByTaskId + "_" + task.getId(), OBJECT_MAPPER.writeValueAsString(stepList));
+            if (newTasks != null) {
+                for (Task task : newTasks) {
+                    TaskInformationBean taskInformation = taskInfoService.getTaskInfoByTaskId(task.getId());
+                    String redisGetStepByTaskId = RedisKeyProperties.getPropertyValue("redis_get_step_by_taskId");
+                    Map<String, Object> apkBeanMap = apkService.getApkUrlAndApkIdToMap(task.getId());
+                    if (apkBeanMap != null) {
+                        taskInformation.setApkId((Integer) apkBeanMap.get("id"));
+                        taskInformation.setApkUrl((String) apkBeanMap.get("apk_url"));
                     }
-                    if (stepListRedis != null) {
-                        JavaType javaType = JsonTool.getCollectionType(ArrayList.class, StepBean.class);
-                        stepList = OBJECT_MAPPER.readValue(stepListRedis, javaType);
+                    Integer stepId = taskLogService.getTaskLogByUserIdAndTaskId(userId, task.getId(), 2);
+                    List<StepBean> stepList = null;
+                    try {
+                        String stepListRedis = redisService.get(redisGetStepByTaskId + "_" + task.getId());
+                        if (stepListRedis == null) {
+                            stepList = stepService.getSteps(task.getId());//可加入redis
+                            redisService.set(redisGetStepByTaskId + "_" + task.getId(), OBJECT_MAPPER.writeValueAsString(stepList));
+                        }
+                        if (stepListRedis != null) {
+                            JavaType javaType = JsonTool.getCollectionType(ArrayList.class, StepBean.class);
+                            stepList = OBJECT_MAPPER.readValue(stepListRedis, javaType);
+                        }
+                        AcquisitionTask acquisitionTask = new AcquisitionTask();
+                        taskInformation.setTaskId(task.getId());
+                        taskInformation.setTaskName(task.getName());
+                        taskInformation.setTaskType(task.getType());
+                        acquisitionTask.setCurrentStep(stepId);
+                        acquisitionTask.setStep(stepList);
+                        acquisitionTask.setTaskInformation(taskInformation);
+                        list.add(acquisitionTask);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        LOGGER.error("根据taskId从redis中获取stepList失败，taskId=" + task.getId(), e);
                     }
-                    AcquisitionTask acquisitionTask = new AcquisitionTask();
-                    taskInformation.setTaskId(task.getId());
-                    taskInformation.setTaskName(task.getName());
-                    taskInformation.setTaskType(task.getType());
-                    acquisitionTask.setCurrentStep(stepId);
-                    acquisitionTask.setStep(stepList);
-                    acquisitionTask.setTaskInformation(taskInformation);
-                    list.add(acquisitionTask);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    LOGGER.error("根据taskId从redis中获取stepList失败，taskId=" + task.getId(), e);
                 }
             }
             LOGGER.info("UserId : " + userId + "获取任务完成！！");
@@ -128,7 +136,7 @@ public class GetTaskServiceImpl implements GetTaskService {
         SynchronizationTask synchronizationTask = new SynchronizationTask();
         if (taskLog == null) {
             //创建任务
-            taskLogService.createTask(userId, taskId, stepId, 2, new Date());
+            taskLogService.createNewTask(userId, taskId, stepId);
             //返回积分
             synchronizationTask.setIntegral(integralBean);
             synchronizationTask.setTaskLog(taskLogService.getTaskLogByUserId(userId));

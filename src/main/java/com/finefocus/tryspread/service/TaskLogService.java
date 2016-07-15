@@ -33,4 +33,6 @@ public interface TaskLogService {
     void completeTask(Integer userId, Integer taskId, Integer stepId, int state, Date taskTime);
 
     List<Map<String, Object>> getUserIdAndIntegrationSumByDate(String date);
+
+    void createNewTask(Integer userId, Integer taskId, Integer stepId);
 }

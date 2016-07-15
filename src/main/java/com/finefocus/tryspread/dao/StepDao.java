@@ -26,4 +26,6 @@ public interface StepDao {
     StepBean getStepByTaskIdStepId(@Param("taskId") Integer taskId, @Param("stepId") Integer stepId);
 
     Date getTaskLogTaskTimeByUserIdAndTaskId(@Param("userId") Integer userId, @Param("taskId") Integer taskId);
+
+    Integer getIntegralByTaskIdAndStepId(@Param("taskId") Integer taskId, @Param("stepId") Integer stepId);
 }
