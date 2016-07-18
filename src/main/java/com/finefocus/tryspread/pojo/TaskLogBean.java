@@ -12,7 +12,7 @@ import java.util.Date;
  * @Description: 任务记录表
  */
 public class TaskLogBean {
-    @JsonIgnore
+    //    @JsonIgnore
     private Integer id;//任务表id
     @JsonIgnore
     private Integer userId;//用户id

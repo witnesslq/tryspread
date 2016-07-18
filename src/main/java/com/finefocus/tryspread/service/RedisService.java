@@ -10,6 +10,9 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Response;
 import redis.clients.jedis.Transaction;
 
+import java.util.Iterator;
+import java.util.Set;
+
 
 @Service("redisService")
 public class RedisService {
@@ -130,6 +133,40 @@ public class RedisService {
             }
         }
         return null;
+    }
+
+    public void batchDelete(String key) {
+        Jedis jedis = null;
+        try {
+            boolean flag = true;
+            while (true) {
+                try {
+                    jedis = jedisPool.getResource();
+                    Set<String> set = jedis.keys(key + "*");
+                    Iterator<String> it = set.iterator();
+                    while (it.hasNext()) {
+                        String keyStr = it.next();
+                        System.out.println(keyStr);
+                        jedis.del(keyStr);
+                    }
+                    break;
+                } catch (Exception e) {
+                    if (flag) {
+                        flag = false;
+                        Thread.sleep(6000);
+                        continue;
+                    } else {
+                        throw e;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("redis删除异常", e);
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
     }
 
     public void exprie(String key, int i) throws Exception {

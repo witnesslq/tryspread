@@ -132,6 +132,12 @@
             <artifactId>spring-tx</artifactId>
             <version>${spring-framework.version}</version>
         </dependency>
+        <!-- spring 单元测试依赖-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>3.2.0.RELEASE</version>
+        </dependency>
         <!-- #################################依赖spring框架的结束####################################### -->
 
         <!-- #################################依赖Mybatis框架的开始###################################### -->

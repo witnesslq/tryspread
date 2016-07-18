@@ -230,8 +230,9 @@ public class GetTaskServiceImpl implements GetTaskService {
         if (apkId != null) {
 //            amountOfDownloads 获取到的当前apk下载次数
             Integer amountOfDownloads = null;
+            String downloadApkid = RedisKeyProperties.getPropertyValue("redis_apk_download_apkid");
             try {
-                String s = redisService.get(String.valueOf(apkId));
+                String s = redisService.get(downloadApkid + String.valueOf(apkId));
                 if (s != null) {
                     amountOfDownloads = Integer.parseInt(s);
                 }
@@ -241,7 +242,8 @@ public class GetTaskServiceImpl implements GetTaskService {
             }
             if (amountOfDownloads == null) {
                 try {
-                    redisService.set(String.valueOf(apkId), "1", 3153600);
+                    //失效时间是1天86400
+                    redisService.set(downloadApkid + String.valueOf(apkId), "1", 86400);
                 } catch (Exception e) {
                     LOGGER.error("redis 放入计数器失败 apkId : " + apkId + "计数器值为： 1 ，第一次下载  ：" + e.getMessage());
                 }
@@ -263,7 +265,7 @@ public class GetTaskServiceImpl implements GetTaskService {
                 }
                 if (amountOfDownloads <= limited) {
                     try {
-                        redisService.set(String.valueOf(apkId), String.valueOf(amountOfDownloads + 1), 3153600);
+                        redisService.set(downloadApkid + String.valueOf(apkId), String.valueOf(amountOfDownloads + 1), 86400);
                     } catch (Exception e) {
                         LOGGER.error("redis 放入计数器失败 apkId : " + apkId + "计数器值 ：" + (amountOfDownloads + 1) + e.getMessage());
                     }

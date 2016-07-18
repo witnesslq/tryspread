@@ -4,6 +4,9 @@
     <update id="setStateByApkId">
         UPDATE t_apk SET state=0 WHERE id=#{apkId}
     </update>
+    <update id="setAllApkState">
+        UPDATE t_apk SET state=1
+    </update>
     <select id="getApkUrl" resultType="java.lang.String">
         SELECT apk_url
         FROM t_apk

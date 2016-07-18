@@ -23,4 +23,5 @@ public interface ApkService {
 
     void setStateByApkId(Integer apkId);
 
+    void setAllApkState();
 }

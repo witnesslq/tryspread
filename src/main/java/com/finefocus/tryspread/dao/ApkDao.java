@@ -24,4 +24,6 @@ public interface ApkDao {
     Integer getLimitedByApkId(@Param("apkId") Integer apkId);
 
     void setStateByApkId(@Param("apkId") Integer apkId);
+
+    void setAllApkState();
 }

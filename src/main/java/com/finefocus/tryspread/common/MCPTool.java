@@ -444,11 +444,11 @@ public class MCPTool {
     public static void main(String[] args) throws Exception {
 //		写入渠道号
 //		args = "-path D:/111.apk -outdir D:/111/ -contents googleplay;m360; -password 12345678".split(" ");
-        args = "-path C:/test/111.apk -outdir C:/111/ -contents googleplay -password 12345678".split(" ");
+//        args = "-path C:/test/111.apk -outdir C:/111/ -contents googleplay -password 12345678".split(" ");
 //		查看工具程序版本号
 //		args = "-version".split(" ");
 //		读取渠道号
-//		args = "-path C:/111/111_googleplay.apk -password 12345678".split(" ");
+        args = "-path C:/111/111_2313299.apk -password 12345678".split(" ");
 
         long time = System.currentTimeMillis();
         String cmdPath = "-path";

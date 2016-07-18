@@ -3,7 +3,7 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-
+    <!-- 积分分发定时任务配置开始-->
     <!-- 定义任务描述 引入任务-->
     <bean class="org.springframework.scheduling.quartz.JobDetailFactoryBean" id="jobDetail">
         <property name="jobClass" value="com.finefocus.tryspread.quartz.IntegrationJob"/>
@@ -15,15 +15,33 @@
     <!-- 定义标准触发器 引入任务描述 与触发器表达式-->
     <bean class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" id="trigger">
         <property name="jobDetail" ref="jobDetail"/>
-        <property name="cronExpression" value="0 0 23 * * ?"/>
+        <property name="cronExpression" value="0 0 4 * * ?"/>
         <!--<property name="cronExpression" value="0 */1 * * * ?"/>-->
     </bean>
-    <!-- 定义调度器 引入标准触发器-->
+    <!-- 积分分发定时任务配置结束-->
 
+    <!-- apk当天下载量状态重置定时任务配置开始-->
+    <bean class="org.springframework.scheduling.quartz.JobDetailFactoryBean" id="jobApkDetail">
+        <property name="jobClass" value="com.finefocus.tryspread.quartz.APkResetStateJob"/>
+        <property name="group" value="apk"/>
+        <property name="name" value="apkresetstatejob"/>
+        <property name="applicationContextJobDataKey" value="applicationContext"/>
+        <property name="durability" value="true"/>
+    </bean>
+    <bean class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" id="apktrigger">
+        <property name="jobDetail" ref="jobApkDetail"/>
+        <property name="cronExpression" value="0 0 4 * * ?"/>
+        <!--<property name="cronExpression" value="0 */1 * * * ?"/>-->
+    </bean>
+    <!-- apk当天下载量状态重置定时任务配置结束-->
+
+
+    <!-- 定义调度器 引入标准触发器-->
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="trigger"/>
+                <ref bean="apktrigger"/>
             </list>
         </property>
     </bean>

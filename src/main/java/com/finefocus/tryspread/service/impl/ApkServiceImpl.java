@@ -62,4 +62,8 @@ public class ApkServiceImpl implements ApkService {
         apkDao.setStateByApkId(apkId);
     }
 
+    public void setAllApkState() {
+        apkDao.setAllApkState();
+    }
+
 }
