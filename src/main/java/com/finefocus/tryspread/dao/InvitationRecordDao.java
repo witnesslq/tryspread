@@ -1,7 +1,9 @@
 package com.finefocus.tryspread.dao;
 
 import com.finefocus.tryspread.pojo.InvitationRecordBean;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,4 +24,6 @@ public interface InvitationRecordDao {
     List<InvitationRecordBean> getInvitationRecordByUserId(int parentId);
 
     Integer getParentIdByUserId(int userId);
+
+    void saveInvitationRecord(@Param("userId") int userId, @Param("parentId") Integer parentId, @Param("date") Date date);
 }

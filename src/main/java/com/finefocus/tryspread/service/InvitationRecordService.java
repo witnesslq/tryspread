@@ -17,4 +17,6 @@ public interface InvitationRecordService {
     Integer getParentIdByUserId(int userId);
 
     Integer getGrandpaIdByUserId(int userId);
+
+    void saveInvitationRecord(int userId, Integer parentId);
 }

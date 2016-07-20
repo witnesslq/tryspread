@@ -39,7 +39,7 @@ public class SignUpServiceImpl implements SignUpService {
     @Autowired
     private TaskService taskService;
 
-    public Map<String, Object> signUp(UserBean userBean) {
+    public Map<String, Object> signUp(UserBean userBean, Integer parentId) {
         Map<String, Object> map = new HashMap<String, Object>();
         Register register = new Register();
         if (userBean != null) {
@@ -56,6 +56,9 @@ public class SignUpServiceImpl implements SignUpService {
                     userId = userService.getUserIdByImei(userBean.getImei());
 
                     integralService.saveIntegralByUserId(userId);
+                    //绑定关系
+                    invitationRecordService.saveInvitationRecord(userId, parentId);
+
                 }
 
                 if (userId != 0) {

@@ -43,6 +43,7 @@ public class RedisDataController {
 
     @RequestMapping(name = "redisRefreshData", method = RequestMethod.GET)
     public void redisRefreshData() {
+        LOGGER.info("手动刷新redis数据开始~");
         //刷新redis中的数据
         List<Task> tasks = taskService.getTasks();
         try {

@@ -40,8 +40,8 @@ public class UserController {
      */
     @RequestMapping(value = "signUp", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> signUp(UserBean userBean) {
-        Map<String, Object> map = signUpService.signUp(userBean);
+    public Map<String, Object> signUp(UserBean userBean, Integer parentId) {
+        Map<String, Object> map = signUpService.signUp(userBean, parentId);
         return map;
 
     }

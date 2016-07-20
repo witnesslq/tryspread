@@ -6,6 +6,7 @@ import com.finefocus.tryspread.service.InvitationRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,5 +38,9 @@ public class InvitationRecordServiceImpl implements InvitationRecordService {
             return null;
         }
 
+    }
+
+    public void saveInvitationRecord(int userId, Integer parentId) {
+        invitationRecordDao.saveInvitationRecord(userId, parentId, new Date());
     }
 }

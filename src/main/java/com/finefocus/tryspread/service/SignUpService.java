@@ -12,5 +12,5 @@ import java.util.Map;
  * @Description: ${todo}
  */
 public interface SignUpService {
-    Map<String, Object> signUp(UserBean userBean);
+    Map<String, Object> signUp(UserBean userBean, Integer parentId);
 }
