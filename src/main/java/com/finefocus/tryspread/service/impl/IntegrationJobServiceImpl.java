@@ -49,22 +49,25 @@ public class IntegrationJobServiceImpl implements IntegrationJobService {
                 if (parentId != null) {
                     //给父级添加积分 20%
                     IntegralBean parentIntegralBean = integralService.getIntegralByUserId(parentId);
-                    parentIntegralBean.setCurrentIntegration((int) (parentIntegralBean.getCurrentIntegration() + integrationSum * 0.2));
-                    parentIntegralBean.setTotalIntegral((int) (parentIntegralBean.getTotalIntegral() + integrationSum * 0.2));
-                    integralService.updateIntegralById(parentIntegralBean);
+                    if (parentIntegralBean != null) {
+                        parentIntegralBean.setCurrentIntegration((int) (parentIntegralBean.getCurrentIntegration() + integrationSum * 0.2));
+                        parentIntegralBean.setTotalIntegral((int) (parentIntegralBean.getTotalIntegral() + integrationSum * 0.2));
+                        integralService.updateIntegralById(parentIntegralBean);
+                    }
+
                 }
                 if (grandpaId != null) {
                     //给父级添加积分 20%
                     IntegralBean grandpaIntegralBean = integralService.getIntegralByUserId(grandpaId);
-                    grandpaIntegralBean.setCurrentIntegration((int) (grandpaIntegralBean.getCurrentIntegration() + integrationSum * 0.1));
-                    grandpaIntegralBean.setTotalIntegral((int) (grandpaIntegralBean.getTotalIntegral() + integrationSum * 0.1));
-                    integralService.updateIntegralById(grandpaIntegralBean);
+                    if (grandpaIntegralBean != null) {
+                        grandpaIntegralBean.setCurrentIntegration((int) (grandpaIntegralBean.getCurrentIntegration() + integrationSum * 0.1));
+                        grandpaIntegralBean.setTotalIntegral((int) (grandpaIntegralBean.getTotalIntegral() + integrationSum * 0.1));
+                        integralService.updateIntegralById(grandpaIntegralBean);
+                    }
+
                 }
 
             }
-
-
         }
-        //根据用户id 查询到他的父id
     }
 }
