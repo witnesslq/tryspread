@@ -1,6 +1,5 @@
 package com.finefocus.tryspread.service;
 
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Map;
 

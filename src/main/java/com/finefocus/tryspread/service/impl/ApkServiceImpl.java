@@ -1,16 +1,17 @@
 package com.finefocus.tryspread.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.finefocus.tryspread.common.RedisKeyProperties;
 import com.finefocus.tryspread.dao.ApkDao;
 import com.finefocus.tryspread.pojo.ApkBean;
-import com.finefocus.tryspread.pojo.ChannelPacUrlBean;
 import com.finefocus.tryspread.service.ApkService;
-import org.joda.time.DateTime;
+import com.finefocus.tryspread.service.RedisService;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -23,8 +24,12 @@ import java.util.Map;
  */
 @Service(value = "apkService")
 public class ApkServiceImpl implements ApkService {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    protected Logger LOGGER = LoggerFactory.getLogger(ApkServiceImpl.class);
     @Autowired
     private ApkDao apkDao;
+    @Autowired
+    private RedisService redisService;
 
     public String getApkUrl(Integer taskId) {
         //查询taskId下的所有启用状态的apk
@@ -49,9 +54,28 @@ public class ApkServiceImpl implements ApkService {
     }
 
     public Map<String, Object> getApkUrlAndApkIdToMap(Integer taskId) {
-        Date newDate = new Date();
-        int hours = newDate.getHours();
-        return apkDao.getApkUrlAndApkIdToMap(taskId, newDate, hours, 1);
+        Map<String, Object> apkBeanMap = null;
+        String redisApkIdAndDownurl = RedisKeyProperties.getPropertyValue("redis_apkid_down_taskId") + taskId;
+        try {
+            String s = redisService.get(redisApkIdAndDownurl);
+            if (s == null) {
+                Date newDate = new Date();
+                int hours = newDate.getHours();
+                apkBeanMap = apkDao.getApkUrlAndApkIdToMap(taskId, newDate, hours, 1);
+                redisService.set(redisApkIdAndDownurl, OBJECT_MAPPER.writeValueAsString(apkBeanMap));
+                return apkBeanMap;
+            }
+            if (s != null) {
+//                JavaType javaType = JsonTool.getCollectionType(Map.class, StepBean.class);
+                apkBeanMap = (Map<String, Object>) OBJECT_MAPPER.readValue(s, Map.class);
+                return apkBeanMap;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("从redis中获取ApkId与ApkDownUrl失败~ taskId = " + taskId, e.getMessage());
+        }
+        return apkBeanMap;
     }
 
     public Integer getLimitedByApkId(Integer apkId) {

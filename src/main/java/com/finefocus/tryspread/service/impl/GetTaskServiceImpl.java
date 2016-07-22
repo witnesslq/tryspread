@@ -27,7 +27,6 @@ import java.util.*;
  */
 @Service(value = "getTaskService")
 public class GetTaskServiceImpl implements GetTaskService {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     protected Logger LOGGER = LoggerFactory.getLogger(GetTaskServiceImpl.class);
     @Autowired
     private IntegralService integralService;
@@ -45,8 +44,6 @@ public class GetTaskServiceImpl implements GetTaskService {
     private RedisService redisService;
 
     public Map<String, Object> getTask(Integer userId, Integer taskid, Integer num) {
-//        Integer taskid = 0;
-//        Integer num = 3;
         Map<String, Object> map = new HashMap<String, Object>();
         if (userId == null) {
             map.put(CodeAndMsg.RESULT, CodeAndMsg.ERROR);
@@ -54,23 +51,8 @@ public class GetTaskServiceImpl implements GetTaskService {
             map.put(CodeAndMsg.MSG, "用户id为空");
         }
         if (userId != null) {
-            String redisGetTasks = RedisKeyProperties.getPropertyValue("redis_get_tasks");
-            List<Task> taskList = null;
+            List<Task> taskList = taskService.getTasks();
             List<Task> newTasks = null;
-            try {
-                String taskListRedis = redisService.get(redisGetTasks);
-                if (StringUtils.isEmpty(taskListRedis)) {
-                    taskList = taskService.getTasks();
-                    redisService.set(redisGetTasks, OBJECT_MAPPER.writeValueAsString(taskList));
-                }
-                if (StringUtils.isNotEmpty(taskListRedis)) {
-                    JavaType javaType = JsonTool.getCollectionType(ArrayList.class, Task.class);
-                    taskList = OBJECT_MAPPER.readValue(taskListRedis, javaType);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                LOGGER.error("从redis中获取全部任务列表失败！！" + e);
-            }
             for (int i = 0; i < taskList.size(); i++) {
                 if (taskList.get(i).getId() > taskid) {
                     if (i + num >= taskList.size()) {
@@ -87,36 +69,24 @@ public class GetTaskServiceImpl implements GetTaskService {
             if (newTasks != null) {
                 for (Task task : newTasks) {
                     TaskInformationBean taskInformation = taskInfoService.getTaskInfoByTaskId(task.getId());
-                    String redisGetStepByTaskId = RedisKeyProperties.getPropertyValue("redis_get_step_by_taskId");
+
                     Map<String, Object> apkBeanMap = apkService.getApkUrlAndApkIdToMap(task.getId());
                     if (apkBeanMap != null) {
                         taskInformation.setApkId((Integer) apkBeanMap.get("id"));
                         taskInformation.setApkUrl((String) apkBeanMap.get("apk_url"));
                     }
                     Integer stepId = taskLogService.getTaskLogByUserIdAndTaskId(userId, task.getId(), 2);
-                    List<StepBean> stepList = null;
-                    try {
-                        String stepListRedis = redisService.get(redisGetStepByTaskId + "_" + task.getId());
-                        if (stepListRedis == null) {
-                            stepList = stepService.getSteps(task.getId());//可加入redis
-                            redisService.set(redisGetStepByTaskId + "_" + task.getId(), OBJECT_MAPPER.writeValueAsString(stepList));
-                        }
-                        if (stepListRedis != null) {
-                            JavaType javaType = JsonTool.getCollectionType(ArrayList.class, StepBean.class);
-                            stepList = OBJECT_MAPPER.readValue(stepListRedis, javaType);
-                        }
-                        AcquisitionTask acquisitionTask = new AcquisitionTask();
-                        taskInformation.setTaskId(task.getId());
-                        taskInformation.setTaskName(task.getName());
-                        taskInformation.setTaskType(task.getType());
-                        acquisitionTask.setCurrentStep(stepId);
-                        acquisitionTask.setStep(stepList);
-                        acquisitionTask.setTaskInformation(taskInformation);
-                        list.add(acquisitionTask);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        LOGGER.error("根据taskId从redis中获取stepList失败，taskId=" + task.getId(), e);
-                    }
+                    List<StepBean> stepList = stepService.getSteps(task.getId());
+
+                    AcquisitionTask acquisitionTask = new AcquisitionTask();
+                    taskInformation.setTaskId(task.getId());
+                    taskInformation.setTaskName(task.getName());
+                    taskInformation.setTaskType(task.getType());
+                    acquisitionTask.setCurrentStep(stepId);
+                    acquisitionTask.setStep(stepList);
+                    acquisitionTask.setTaskInformation(taskInformation);
+                    list.add(acquisitionTask);
+
                 }
             }
             LOGGER.info("UserId : " + userId + "获取任务完成！！");
