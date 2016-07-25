@@ -62,7 +62,7 @@ public class ApkServiceImpl implements ApkService {
                 Date newDate = new Date();
                 int hours = newDate.getHours();
                 apkBeanMap = apkDao.getApkUrlAndApkIdToMap(taskId, newDate, hours, 1);
-                redisService.set(redisApkIdAndDownurl, OBJECT_MAPPER.writeValueAsString(apkBeanMap));
+                redisService.set(redisApkIdAndDownurl, OBJECT_MAPPER.writeValueAsString(apkBeanMap), 3600);
                 return apkBeanMap;
             }
             if (s != null) {
